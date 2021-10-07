@@ -16,7 +16,11 @@ class FTP2(ftplib.FTP):
 		for filename in filenames:
 			self.delete(filename)
 
-
-with FTP2(sys.argv[1], sys.argv[2], sys.argv[3]) as f:
-	f.cwd(sys.argv[4])
-	f.mdelete(sys.argv[5])
+try:
+	with FTP2(sys.argv[1], sys.argv[2], sys.argv[3]) as f:
+		f.cwd(sys.argv[4])
+		f.mdelete(sys.argv[5])
+except IndexError:
+	print("wrong number of arguments")
+except Exception as e:
+	print(f"exception class => {e.__class__.__name__} : {e}")
